@@ -1,8 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import "./App.scss";
+import "./Main.scss";
+import Confirm from "./components/Confirm";
+import Done from "./components/Done";
+import Request from "./components/Request";
+import { JsxEmit } from "typescript";
 
-function App() {
+function Main() {
   const [buydata, setBuydata] = useState<[]>([]);
 
   //getData function
@@ -24,7 +28,6 @@ function App() {
   }, []);
 
   function checkFunction(): void {
-    // console.log(buydata.map((el) => el.id));
     console.log(buydata);
 
     buydata.map((data) => {
@@ -45,10 +48,21 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <span>Hello WOrld!</span>
-      <h2>구매요청</h2>
-      {buydata.map(function (data) {
+    <div className="Main">
+      {/* 구매요청 */}
+      <Request />
+      {/* 구매 대상 확인 */}
+      <Confirm buydata={buydata} />
+      {/* 구매완료 */}
+      <Done />
+    </div>
+  );
+}
+
+export default Main;
+
+{
+  /* {buydata.map(function (data: any) {
         type dataType = {
           created: string;
           douzoneCode: string;
@@ -61,11 +75,5 @@ function App() {
           unitPrice: number;
         };
         return <span>{data["totalPrice" as keyof dataType]}</span>;
-      })}
-      <h2>구매 대상 확인</h2>
-      <h2>구매 완료</h2>
-    </div>
-  );
+      })} */
 }
-
-export default App;
