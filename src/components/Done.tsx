@@ -2,18 +2,11 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 function Done() {
-  const [buydata, setBuydata] = useState<[]>([]);
-
   return (
     <div className="Done">
       <section className="Confirm">
         <div className="requestContainer">
           <h2>구매완료</h2>
-          {/* <div className="requestCount">
-            <span> 전체 6 /</span>
-            <span>대기 6 /</span>
-            <span>완료 0</span>
-          </div> */}
 
           <table>
             <th>
