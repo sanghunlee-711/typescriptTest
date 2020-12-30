@@ -1,7 +1,22 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-function Done() {
+interface EnumServiceItem {
+  created: string;
+  douzoneCode: string;
+  id: number;
+  isUsed: boolean;
+  modified: string;
+  name: string;
+  quantity: number;
+  totalPrice: number;
+  unitPrice: number;
+  active?: string;
+}
+
+type EnumServiceItems = Array<EnumServiceItem>;
+
+function Done(props: { receiveData: EnumServiceItems | null | undefined }) {
   return (
     <div className="Done">
       <section className="Confirm">
@@ -19,32 +34,46 @@ function Done() {
             <th>상태</th>
             <th>시리얼</th>
             <th>이력</th>
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>
-                <span>[신품]소형PC스피커(USB전원)</span>
-              </td>
-              <td>
-                <span>ETDV3SPKDO7</span>
-              </td>
-              <td>
-                <span>3,000원</span>
-              </td>
-              <td>
-                <span> 입고일</span>
-              </td>
-              <td>
-                <span> 대기</span>
-              </td>
-              <td>
-                <input type="text" />
-              </td>
-              <td>
-                <button></button>
-              </td>
-            </tr>
+
+            {props?.receiveData?.map((el: EnumServiceItem, index) => {
+              return (
+                <tr key={index}>
+                  <td>
+                    {el.active === "false" ? (
+                      <div>notCheck</div>
+                    ) : (
+                      <div>Check</div>
+                    )}
+                  </td>
+                  <td>
+                    {el.isUsed ? (
+                      <span className="newOne">[신품]</span>
+                    ) : (
+                      <span className="oldOne">[중고]</span>
+                    )}
+                    <span>{el.name}</span>
+                  </td>
+                  <td>
+                    <span>{el.douzoneCode}</span>
+                  </td>
+                  <td>
+                    <span>{el.unitPrice}</span>
+                  </td>
+                  <td>
+                    <span>{el.unitPrice}</span>
+                  </td>
+                  <td className="pending">
+                    <span> 대기</span>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      value={el.active === "true" ? `시리얼${el.id}` : ""}
+                    />
+                  </td>
+                </tr>
+              );
+            })}
           </table>
         </div>
         <div className="buttonWrapper">

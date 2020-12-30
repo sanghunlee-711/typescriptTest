@@ -1,17 +1,12 @@
 import React from "react";
 import "../styles/request.scss";
 import { useEffect, useState } from "react";
-import { SIGTERM } from "constants";
 
 function Reqeust(props: { site: []; sitePartition: [] }) {
-  function checkFunction(): void {
-    console.log(props.site);
-  }
-
   return (
     <section className="Reqeust">
       <div className="requestContainer">
-        <h2 onClick={checkFunction}>구매요청</h2>
+        <h2>구매요청</h2>
         <table>
           <th>기본정보</th>
           <tr>
