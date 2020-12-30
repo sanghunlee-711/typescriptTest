@@ -33,6 +33,7 @@ function Main() {
   const [receiveData, setReceiveData] = useState<
     EnumServiceItems | null | undefined
   >([]);
+  const [errorIndex, setErrorIndex] = useState<[]>([]);
   // const [user, setUser] = useState<UserData | null>(null);
 
   //getData function
@@ -78,6 +79,19 @@ function Main() {
     api(errorUrl, "error");
   }, []);
 
+  function makeErrorIndex(errorData: EnumServiceItems | null): void {
+    errorData?.forEach((el) => {
+      console.log(el);
+    });
+  }
+
+  function happenError(
+    errorData: EnumServiceItems | null,
+    checkedData: EnumServiceItems | null | undefined
+  ): void {
+    console.log(errorData);
+  }
+
   function makeItemList(itemData: EnumServiceItems | null): void {
     const newData: EnumServiceItems | null = [];
     itemData?.map((el) => {
@@ -87,7 +101,7 @@ function Main() {
         newData.push(el);
       }
     });
-    return setNewBuyData(newData);
+    setNewBuyData(newData);
   }
 
   //checkFucntion

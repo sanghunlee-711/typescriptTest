@@ -30,6 +30,9 @@ function Confirm(props: {
   checkBoolean: string;
   receiveProduct: (receivedData: EnumServiceItems | null | undefined) => void;
 }) {
+  function serialMake(soonseo: number) {
+    return (soonseo += 1);
+  }
   return (
     <div className="Confirm">
       <section className="Confirm">
@@ -96,8 +99,11 @@ function Confirm(props: {
                   <td>
                     <input
                       type="text"
-                      value={el.active === "true" ? `시리얼${el.id}` : ""}
+                      value={
+                        el.active === "true" ? `시리얼${serialMake(index)}` : ""
+                      }
                     />
+                    <span>시리얼 오류 발생..</span>
                   </td>
                 </tr>
               );
