@@ -32,7 +32,8 @@ function Main() {
   const [countBool, setCountBool] = useState<number>(0);
   const [receiveData, setReceiveData] = useState<
     EnumServiceItems | null | undefined
-  >(null);
+  >([]);
+  const [errorIndex, setErrorIndex] = useState<[]>([]);
   // const [user, setUser] = useState<UserData | null>(null);
 
   //getData function
@@ -78,6 +79,19 @@ function Main() {
     api(errorUrl, "error");
   }, []);
 
+  function makeErrorIndex(errorData: EnumServiceItems | null): void {
+    errorData?.forEach((el) => {
+      console.log(el);
+    });
+  }
+
+  function happenError(
+    errorData: EnumServiceItems | null,
+    checkedData: EnumServiceItems | null | undefined
+  ): void {
+    console.log(errorData);
+  }
+
   function makeItemList(itemData: EnumServiceItems | null): void {
     const newData: EnumServiceItems | null = [];
     itemData?.map((el) => {
@@ -87,7 +101,7 @@ function Main() {
         newData.push(el);
       }
     });
-    return setNewBuyData(newData);
+    setNewBuyData(newData);
   }
 
   //checkFucntion
@@ -138,8 +152,20 @@ function Main() {
   function receiveProduct(
     receivedData: EnumServiceItems | null | undefined
   ): void {
-    setReceiveData(receivedData);
-    setNewBuyData([]);
+    const receivedArray: EnumServiceItems | null | undefined = [];
+
+    receivedData?.forEach((el) => {
+      if (el.active === "true") {
+        console.log("hereisEL", el);
+        receivedArray.push(el);
+        console.log(receiveData);
+      }
+
+      setReceiveData(receiveData?.concat(receivedArray));
+    });
+    console.log("receiveData", receiveData);
+
+    setNewBuyData(receivedData?.filter((el) => el.active != "true"));
   }
 
   function checkFunction(num: number): void {

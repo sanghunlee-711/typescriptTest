@@ -63,7 +63,7 @@ function Done(props: { receiveData: EnumServiceItems | null | undefined }) {
                     <span>{el.unitPrice}</span>
                   </td>
                   <td className="pending">
-                    <span> 대기</span>
+                    <span>완료</span>
                   </td>
                   <td>
                     <input
@@ -71,6 +71,7 @@ function Done(props: { receiveData: EnumServiceItems | null | undefined }) {
                       value={el.active === "true" ? `시리얼${el.id}` : ""}
                     />
                   </td>
+                  <td>:</td>
                 </tr>
               );
             })}
