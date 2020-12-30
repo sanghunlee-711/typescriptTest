@@ -32,7 +32,7 @@ function Main() {
   const [countBool, setCountBool] = useState<number>(0);
   const [receiveData, setReceiveData] = useState<
     EnumServiceItems | null | undefined
-  >(null);
+  >([]);
   // const [user, setUser] = useState<UserData | null>(null);
 
   //getData function
@@ -138,8 +138,20 @@ function Main() {
   function receiveProduct(
     receivedData: EnumServiceItems | null | undefined
   ): void {
-    setReceiveData(receivedData);
-    setNewBuyData([]);
+    const receivedArray: EnumServiceItems | null | undefined = [];
+
+    receivedData?.forEach((el) => {
+      if (el.active === "true") {
+        console.log("hereisEL", el);
+        receivedArray.push(el);
+        console.log(receiveData);
+      }
+
+      setReceiveData(receiveData?.concat(receivedArray));
+    });
+    console.log("receiveData", receiveData);
+
+    setNewBuyData(receivedData?.filter((el) => el.active != "true"));
   }
 
   function checkFunction(num: number): void {
