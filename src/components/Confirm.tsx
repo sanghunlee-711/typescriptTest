@@ -1,22 +1,37 @@
 import React from "react";
 import "../styles/confirm.scss";
 
-function Confirm(props: { buydata: []; error: []; newBuyData: [] }) {
-  function checkFunction(): void {
-    console.log(props.buydata);
-    console.log(props.newBuyData);
-  }
+interface EnumServiceItem {
+  created: string;
+  douzoneCode: string;
+  id: number;
+  isUsed: boolean;
+  modified: string;
+  name: string;
+  quantity: number;
+  totalPrice: number;
+  unitPrice: number;
+  active?: string;
+}
 
-  // const lengthCalculator = (arr: []) => {
-  //   const newLength: number = arr.length();
-  //   return console.log(arr);
-  // };
+type EnumServiceItems = Array<EnumServiceItem>;
 
+function Confirm(props: {
+  buydata: [];
+  error: [];
+  newBuyData: EnumServiceItems | null | undefined;
+  checking: (
+    order: number,
+    checkedData: EnumServiceItems | null | undefined
+  ) => void;
+  checkAll: (checkedData: EnumServiceItems | null | undefined) => void;
+  checkBoolean: string;
+}) {
   return (
     <div className="Confirm">
       <section className="Confirm">
         <div className="requestContainer">
-          <h2 onClick={checkFunction}>구매 대상 확인</h2>
+          <h2>구매 대상 확인</h2>
           <div className="requestCount">
             <span> 전체 {props.newBuyData?.length}/</span>
             <span>대기 {props.newBuyData?.length} /</span>
@@ -25,8 +40,13 @@ function Confirm(props: { buydata: []; error: []; newBuyData: [] }) {
 
           <table>
             <tr>
-              <th>
+              <th onClick={() => props.checkAll(props.newBuyData)}>
                 <input type="checkbox" />
+                {props.checkBoolean === "true" ? (
+                  <div>AllCheck</div>
+                ) : (
+                  <div>NOTCHECK</div>
+                )}
               </th>
               <th>품목이름</th>
               <th>품목코드</th>
@@ -35,50 +55,40 @@ function Confirm(props: { buydata: []; error: []; newBuyData: [] }) {
               <th>상태</th>
               <th>시리얼</th>
             </tr>
-            {props.newBuyData.map((el, index) => {
-              type dataType = {
-                id: number;
-                name: string;
-                douzoneCode: string;
-                quantity: number;
-                unitPrice: number;
-                totalPrice: number;
-                isUsed: boolean;
-                created: string;
-                modified: string;
-              };
+            {props?.newBuyData?.map((el: EnumServiceItem, index) => {
               return (
                 <tr key={index}>
-                  <td>
+                  <td onClick={() => props.checking(index, props.newBuyData)}>
                     <input type="checkbox" />
+                    {el.active === "false" ? (
+                      <div>Hello</div>
+                    ) : (
+                      <div>Yellow</div>
+                    )}
                   </td>
                   <td>
-                    {el["isUsed" as keyof dataType] ? (
+                    {el.isUsed ? (
                       <span className="newOne">[신품]</span>
                     ) : (
                       <span className="oldOne">[중고]</span>
                     )}
 
-                    {/* <span>
-                      {el["isUsed" as keyof dataType] ? "신품" : "중고"}
-                    </span> */}
-
-                    <span>{el["name" as keyof dataType]}</span>
+                    <span>{el.name}</span>
                   </td>
                   <td>
-                    <span>{el["douzoneCode" as keyof dataType]}</span>
+                    <span>{el.douzoneCode}</span>
                   </td>
                   <td>
-                    <span>{el["unitPrice" as keyof dataType]}</span>
+                    <span>{el.unitPrice}</span>
                   </td>
                   <td>
-                    <span>{el["unitPrice" as keyof dataType]}</span>
+                    <span>{el.unitPrice}</span>
                   </td>
                   <td className="pending">
                     <span> 대기</span>
                   </td>
                   <td>
-                    <input type="text" />
+                    <input type="text" value={el.unitPrice} />
                   </td>
                 </tr>
               );

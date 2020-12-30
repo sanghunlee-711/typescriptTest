@@ -1,7 +1,6 @@
 import React from "react";
 import "../styles/request.scss";
 import { useEffect, useState } from "react";
-import { SIGTERM } from "constants";
 
 function Reqeust(props: { site: []; sitePartition: [] }) {
   function checkFunction(): void {
