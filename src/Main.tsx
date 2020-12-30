@@ -30,6 +30,9 @@ function Main() {
   >(null);
   const [checkBoolean, setCheckBoolean] = useState<string>("true");
   const [countBool, setCountBool] = useState<number>(0);
+  const [receiveData, setReceiveData] = useState<
+    EnumServiceItems | null | undefined
+  >(null);
   // const [user, setUser] = useState<UserData | null>(null);
 
   //getData function
@@ -56,12 +59,30 @@ function Main() {
         }
       });
   }
+  useEffect(() => {
+    const buydataUrl =
+      "https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/data.json";
+
+    const siteUrl =
+      "https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/site.json";
+
+    const sitePartitionUrl =
+      " https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/sitePartition.json";
+
+    const errorUrl =
+      "https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/error.json";
+
+    api(buydataUrl, "buydata");
+    api(siteUrl, "site");
+    api(sitePartitionUrl, "sitePartition");
+    api(errorUrl, "error");
+  }, []);
 
   function makeItemList(itemData: EnumServiceItems | null): void {
     const newData: EnumServiceItems | null = [];
     itemData?.map((el) => {
       for (let i = 0; i < el.quantity; i++) {
-        el.active = "true";
+        el.active = "false";
         console.log("EL", el);
         newData.push(el);
       }
@@ -85,6 +106,8 @@ function Main() {
         );
         setCountBool(countBool - 1);
         setCheckBoolean(checkedData?.length <= countBool ? "false" : "true");
+        console.log(checkedData?.length);
+        console.log(countBool);
       } else if (el.active === "false" && index === order) {
         setNewBuyData(
           checkedData?.map((el, index) =>
@@ -111,25 +134,13 @@ function Main() {
       )
     );
   }
-
-  useEffect(() => {
-    const buydataUrl =
-      "https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/data.json";
-
-    const siteUrl =
-      "https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/site.json";
-
-    const sitePartitionUrl =
-      " https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/sitePartition.json";
-
-    const errorUrl =
-      "https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/error.json";
-
-    api(buydataUrl, "buydata");
-    api(siteUrl, "site");
-    api(sitePartitionUrl, "sitePartition");
-    api(errorUrl, "error");
-  }, []);
+  //receive function
+  function receiveProduct(
+    receivedData: EnumServiceItems | null | undefined
+  ): void {
+    setReceiveData(receivedData);
+    setNewBuyData([]);
+  }
 
   function checkFunction(num: number): void {
     // console.log(buydata, site, sitePartition, error);
@@ -164,9 +175,11 @@ function Main() {
         checking={checking}
         checkAll={checkAll}
         checkBoolean={checkBoolean}
+        receiveProduct={receiveProduct}
+        receiveData={receiveData}
       />
       {/* 구매완료 */}
-      <Done />
+      <Done receiveData={receiveData} />
     </div>
   );
 }
