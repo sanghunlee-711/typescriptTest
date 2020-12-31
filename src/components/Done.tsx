@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import "../styles/done.scss";
 
 interface EnumServiceItem {
   created: string;
@@ -12,6 +12,7 @@ interface EnumServiceItem {
   totalPrice: number;
   unitPrice: number;
   active?: string;
+  serial?: number;
 }
 
 type EnumServiceItems = Array<EnumServiceItem>;
@@ -24,9 +25,7 @@ function Done(props: { receiveData: EnumServiceItems | null | undefined }) {
           <h2>구매완료</h2>
 
           <table>
-            <th>
-              <input type="checkbox" />
-            </th>
+            <th></th>
             <th>품목이름</th>
             <th>품목코드</th>
             <th>구매단가(VAT포함)</th>
@@ -40,9 +39,11 @@ function Done(props: { receiveData: EnumServiceItems | null | undefined }) {
                 <tr key={index}>
                   <td>
                     {el.active === "false" ? (
-                      <div>notCheck</div>
+                      <img src="https://img.icons8.com/ios/15/000000/unchecked-checkbox.png" />
                     ) : (
-                      <div>Check</div>
+                      <div>
+                        <img src="https://img.icons8.com/ios/15/000000/checked-checkbox--v1.png" />
+                      </div>
                     )}
                   </td>
                   <td>
@@ -60,15 +61,19 @@ function Done(props: { receiveData: EnumServiceItems | null | undefined }) {
                     <span>{el.unitPrice}</span>
                   </td>
                   <td>
-                    <span>{el.unitPrice}</span>
+                    <span className="createdDate">
+                      {el.created.slice(0, el.created.indexOf("T"))}
+                    </span>
                   </td>
                   <td className="pending">
-                    <span>완료</span>
+                    <span className="green">완료</span>
                   </td>
                   <td>
                     <input
+                      disabled
+                      className="serialBlock"
                       type="text"
-                      value={el.active === "true" ? `시리얼${el.id}` : ""}
+                      value={el.active === "true" ? `시리얼${el.serial}` : ""}
                     />
                   </td>
                   <td>:</td>
@@ -76,9 +81,26 @@ function Done(props: { receiveData: EnumServiceItems | null | undefined }) {
               );
             })}
           </table>
+          {props?.receiveData?.length === 0 ? (
+            <div className="noData">
+              <img
+                alt="nodata image"
+                src="https://icon-library.com/images/no-data-icon/no-data-icon-10.jpg"
+              />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className="buttonWrapper">
-          <button type="submit">되돌리기</button>
+          <button
+            type="submit"
+            className={
+              props.receiveData?.length === 0 ? "endButton" : "activeButton"
+            }
+          >
+            되돌리기
+          </button>
         </div>
       </section>
     </div>
