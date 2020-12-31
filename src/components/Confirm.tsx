@@ -12,13 +12,19 @@ interface EnumServiceItem {
   totalPrice: number;
   unitPrice: number;
   active?: string;
+  serial?: number;
+  serialActive?: string;
+  showSerial?: string;
 }
-
+interface ErrorType {
+  [index: number]: { serial?: string };
+}
+type ErrorTypes = Array<ErrorType>;
 type EnumServiceItems = Array<EnumServiceItem>;
 
 function Confirm(props: {
   buydata: [];
-  error: [];
+  error: ErrorTypes;
   newBuyData: EnumServiceItems | null | undefined;
   receiveData: EnumServiceItems | null | undefined;
 
@@ -29,10 +35,11 @@ function Confirm(props: {
   checkAll: (checkedData: EnumServiceItems | null | undefined) => void;
   checkBoolean: string;
   receiveProduct: (receivedData: EnumServiceItems | null | undefined) => void;
+  happenError: (
+    errorData: ErrorTypes,
+    checkedData: EnumServiceItems | null | undefined
+  ) => void;
 }) {
-  function serialMake(soonseo: number) {
-    return (soonseo += 1);
-  }
   return (
     <div className="Confirm">
       <section className="Confirm">
@@ -99,11 +106,11 @@ function Confirm(props: {
                   <td>
                     <input
                       type="text"
-                      value={
-                        el.active === "true" ? `시리얼${serialMake(index)}` : ""
-                      }
+                      value={el.active === "true" ? `시리얼${el.serial}` : ""}
                     />
-                    <span>시리얼 오류 발생..</span>
+                    <span>
+                      {el.serialActive === "true" ? "시리얼 오류 발생" : ""}
+                    </span>
                   </td>
                 </tr>
               );
@@ -118,7 +125,12 @@ function Confirm(props: {
         >
           입고하기
         </button>
-        <button type="submit">오류발생시키기</button>
+        <button
+          type="submit"
+          onClick={() => props.happenError(props.error, props.buydata)}
+        >
+          오류발생시키기
+        </button>
       </section>
     </div>
   );

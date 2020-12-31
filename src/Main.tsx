@@ -16,15 +16,22 @@ interface EnumServiceItem {
   totalPrice: number;
   unitPrice: number;
   active?: string;
+  serial?: number;
+  serialActive?: string;
+  showSerial?: string;
 }
 
+interface ErrorType {
+  [index: number]: { serial?: string };
+}
+type ErrorTypes = Array<ErrorType>;
 type EnumServiceItems = Array<EnumServiceItem>;
 
 function Main() {
   const [buydata, setBuydata] = useState<[]>([]);
   const [site, setSite] = useState<[]>([]);
   const [sitePartition, setSitePartition] = useState<[]>([]);
-  const [error, setError] = useState<[]>([]);
+  const [error, setError] = useState<ErrorTypes>([]);
   const [newBuyData, setNewBuyData] = useState<
     EnumServiceItems | null | undefined
   >(null);
@@ -33,8 +40,6 @@ function Main() {
   const [receiveData, setReceiveData] = useState<
     EnumServiceItems | null | undefined
   >([]);
-  const [errorIndex, setErrorIndex] = useState<[]>([]);
-  // const [user, setUser] = useState<UserData | null>(null);
 
   //getData function
   function api(url: string, setDataType: string) {
@@ -79,26 +84,55 @@ function Main() {
     api(errorUrl, "error");
   }, []);
 
-  function makeErrorIndex(errorData: EnumServiceItems | null): void {
-    errorData?.forEach((el) => {
-      console.log(el);
-    });
-  }
-
   function happenError(
-    errorData: EnumServiceItems | null,
+    errorData: ErrorTypes,
     checkedData: EnumServiceItems | null | undefined
   ): void {
-    console.log(errorData);
+    const errorArray: EnumServiceItems | null = [];
+
+    checkedData?.map((el, index) => {
+      let i = 0;
+      while (i < el.quantity) {
+        const sampleEl: EnumServiceItem = JSON.parse(JSON.stringify(el)); //deep copy
+        const sampleError: string | undefined = errorData[index + 1][i].serial;
+        if (sampleError !== undefined) {
+          //error
+          sampleEl.serial = sampleEl.quantity + 1;
+          sampleEl.active = "true";
+          sampleEl.serialActive = "true";
+          sampleEl.showSerial = "true";
+          errorArray.push(sampleEl);
+        } else {
+          //not error
+          sampleEl.serial = i + 1;
+          sampleEl.active = "true";
+          sampleEl.serialActive = "false";
+          sampleEl.showSerial = "false";
+
+          errorArray.push(sampleEl);
+        }
+        i += 1;
+      }
+    });
+    setNewBuyData(errorArray);
   }
 
   function makeItemList(itemData: EnumServiceItems | null): void {
     const newData: EnumServiceItems | null = [];
+
     itemData?.map((el) => {
-      for (let i = 0; i < el.quantity; i++) {
-        el.active = "false";
-        console.log("EL", el);
-        newData.push(el);
+      let i = 0;
+
+      while (i < el.quantity) {
+        const sampleEl: EnumServiceItem = JSON.parse(JSON.stringify(el)); //deep copy
+
+        sampleEl.active = "false";
+        sampleEl.serialActive = "false";
+        sampleEl.showSerial = "false";
+
+        sampleEl.serial = i + 1;
+        newData.push(sampleEl);
+        i += 1;
       }
     });
     setNewBuyData(newData);
@@ -111,22 +145,32 @@ function Main() {
   ): void {
     checkedData?.forEach((el, index) => {
       if (el.active === "true" && index === order) {
+        //uncheck
         setNewBuyData(
           checkedData?.map((el, index) =>
             index === order && el.active === "true"
-              ? { ...el, active: "false" }
+              ? {
+                  ...el,
+                  active: "false",
+                  serialActive: "false",
+                  showSerial: "false",
+                }
               : el
           )
         );
         setCountBool(countBool - 1);
         setCheckBoolean(checkedData?.length <= countBool ? "false" : "true");
-        console.log(checkedData?.length);
-        console.log(countBool);
       } else if (el.active === "false" && index === order) {
+        //recheck
         setNewBuyData(
           checkedData?.map((el, index) =>
             index === order && el.active === "false"
-              ? { ...el, active: "true" }
+              ? {
+                  ...el,
+                  active: "true",
+                  serialActive: "false",
+                  showSerial: "false",
+                }
               : el
           )
         );
@@ -143,8 +187,18 @@ function Main() {
     setNewBuyData(
       checkedData?.map((el) =>
         checkBoolean === "true"
-          ? { ...el, active: "true" }
-          : { ...el, active: "false" }
+          ? {
+              ...el,
+              active: "true",
+              serialActive: "false",
+              showSerial: "false",
+            }
+          : {
+              ...el,
+              active: "false",
+              serialActive: "false",
+              showSerial: "false",
+            }
       )
     );
   }
@@ -153,47 +207,37 @@ function Main() {
     receivedData: EnumServiceItems | null | undefined
   ): void {
     const receivedArray: EnumServiceItems | null | undefined = [];
+    const newshowData: EnumServiceItems | null | undefined = [];
 
     receivedData?.forEach((el) => {
-      if (el.active === "true") {
-        console.log("hereisEL", el);
-        receivedArray.push(el);
-        console.log(receiveData);
+      const testArr: EnumServiceItem | null | undefined = JSON.parse(
+        JSON.stringify(el)
+      );
+      if (testArr?.active === "true" && testArr?.showSerial === "false") {
+        receivedArray.push(testArr);
       }
-
+      //구매완료 투입
       setReceiveData(receiveData?.concat(receivedArray));
     });
-    console.log("receiveData", receiveData);
 
-    setNewBuyData(receivedData?.filter((el) => el.active != "true"));
-  }
-
-  function checkFunction(num: number): void {
-    // console.log(buydata, site, sitePartition, error);
-
-    // buydata.map((data) => {
-    //   type dataType = {
-    //     created: string;
-    //     douzoneCode: string;
-    //     id: number;
-    //     isUsed: boolean;
-    //     modified: string;
-    //     name: string;
-    //     quantity: number;
-    //     totalPrice: number;
-    //     unitPrice: number;
-    //   };
-
-    //   console.log(data["totalPrice" as keyof dataType]);
-    // });
-    console.log(error);
+    receivedData?.forEach((el) => {
+      const newOneArray: EnumServiceItem | null | undefined = JSON.parse(
+        JSON.stringify(el)
+      );
+      if (
+        newOneArray?.active === "false" ||
+        newOneArray?.showSerial === "true"
+      ) {
+        newshowData.push(newOneArray);
+      }
+      //구매절차 데이터
+      setNewBuyData(newshowData);
+    });
   }
 
   return (
     <div className="Main">
-      {/* 기본정보 */}
       <Request site={site} sitePartition={sitePartition} />
-      {/* 구매 대상 확인 */}
       <Confirm
         buydata={buydata}
         error={error}
@@ -203,8 +247,8 @@ function Main() {
         checkBoolean={checkBoolean}
         receiveProduct={receiveProduct}
         receiveData={receiveData}
+        happenError={happenError}
       />
-      {/* 구매완료 */}
       <Done receiveData={receiveData} />
     </div>
   );

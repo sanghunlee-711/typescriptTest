@@ -12,6 +12,7 @@ interface EnumServiceItem {
   totalPrice: number;
   unitPrice: number;
   active?: string;
+  serial?: number;
 }
 
 type EnumServiceItems = Array<EnumServiceItem>;
@@ -68,7 +69,7 @@ function Done(props: { receiveData: EnumServiceItems | null | undefined }) {
                   <td>
                     <input
                       type="text"
-                      value={el.active === "true" ? `시리얼${el.id}` : ""}
+                      value={el.active === "true" ? `시리얼${el.serial}` : ""}
                     />
                   </td>
                   <td>:</td>
