@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import "../styles/done.scss";
 
 interface EnumServiceItem {
   created: string;
@@ -64,7 +64,7 @@ function Done(props: { receiveData: EnumServiceItems | null | undefined }) {
                     <span>{el.unitPrice}</span>
                   </td>
                   <td className="pending">
-                    <span>완료</span>
+                    <span className="green">완료</span>
                   </td>
                   <td>
                     <input

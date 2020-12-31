@@ -1,13 +1,17 @@
 .Confirm {
   width: 90vw;
   margin: 0 auto;
+  .marking{
+    background-color: #E4F6FF;
+    z-index: 100;
+  }
   table {
     width: 100%;
     border-collapse: collapse;
     border-radius: 5px;
 
     td {
-      border: 1px solid gray;
+      border: 1px solid #fafafa;
       input {
         width: 100%;
         height: 100%;

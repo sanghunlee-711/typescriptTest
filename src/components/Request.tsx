@@ -14,13 +14,13 @@ function Reqeust(props: { site: []; sitePartition: [] }) {
               <span>*</span>구매요청자
             </td>
             <td className="inputArea">
-              <input type="text" />
+              <input className="buyRequire" type="text" placeholder="이상훈" />
             </td>
             <td>
               <span>*</span>지사
             </td>
             <td className="inputArea">
-              <select name="site">
+              <select className="site" name="site">
                 {props.site.map(function (el) {
                   type dataType = {
                     id: number;
@@ -43,7 +43,7 @@ function Reqeust(props: { site: []; sitePartition: [] }) {
               <span>*</span>창고
             </td>
             <td className="inputArea">
-              <select name="sitePartition">
+              <select className="sitePartition" name="sitePartition">
                 {props.sitePartition.map(function (el) {
                   type dataType = {
                     id: number;

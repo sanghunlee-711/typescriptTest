@@ -59,7 +59,6 @@ function Confirm(props: {
           <table>
             <tr>
               <th onClick={() => props.checkAll(props.newBuyData)}>
-                <input type="checkbox" />
                 {props.checkBoolean === "false" ? (
                   <div>ALLCHECK</div>
                 ) : (
@@ -75,7 +74,10 @@ function Confirm(props: {
             </tr>
             {props?.newBuyData?.map((el: EnumServiceItem, index) => {
               return (
-                <tr key={index}>
+                <tr
+                  key={index}
+                  className={el.serialActive === "true" ? "marking" : ""}
+                >
                   <td onClick={() => props.checking(index, props.newBuyData)}>
                     {el.active === "false" ? (
                       <div>notCheck</div>
@@ -108,9 +110,12 @@ function Confirm(props: {
                       type="text"
                       value={el.active === "true" ? `시리얼${el.serial}` : ""}
                     />
-                    <span>
-                      {el.serialActive === "true" ? "시리얼 오류 발생" : ""}
-                    </span>
+
+                    {el.serialActive === "true" ? (
+                      <span>시리얼 오류 발생</span>
+                    ) : (
+                      <span></span>
+                    )}
                   </td>
                 </tr>
               );

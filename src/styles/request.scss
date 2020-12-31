@@ -1,13 +1,32 @@
 .Reqeust{
     width: 90vw;
     margin: 0 auto;
+
     table{
         width: 100%;
         border-collapse: collapse;
-        border-radius: 5px;
 
         td {
             border: 1px solid gray;
+        }
+        .buyRequire{
+            background-color: #fafafa;
+            width: 100%;
+            border: 1px solid #fafafa;
+            border-radius: 3px;
+        }
+
+        .site {
+            height: 100%;;
+            width: 100%;
+            border: 1px solid gray;
+            border-radius: 3px;
+        }
+        .sitePartition{
+            height: 100%;;
+            width: 100%;
+            border: 1px solid gray;
+            border-radius: 3px;
         }
         th{
             text-align: left;
