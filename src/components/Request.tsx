@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from "react";
 import "../styles/request.scss";
-import { useEffect, useState } from "react";
 
 function Reqeust(props: { site: []; sitePartition: [] }) {
   return (

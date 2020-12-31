@@ -13,7 +13,7 @@ module.exports = {
     },
   },
   rules: {
-    // 추후 .prettierrc.js 파일에서 설정해줄 예정
+    "@typescript-eslint/explicit-function-return-type": "off",
   },
   settings: {
     react: {
