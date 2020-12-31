@@ -39,6 +39,7 @@ function Confirm(props: {
     errorData: ErrorTypes,
     checkedData: EnumServiceItems | null | undefined
   ) => void;
+  countBool: number;
 }) {
   return (
     <div className="Confirm">
@@ -68,7 +69,8 @@ function Confirm(props: {
           <table>
             <tr>
               <th onClick={() => props.checkAll(props.newBuyData)}>
-                {props.checkBoolean === "false" ? (
+                {props.newBuyData != undefined &&
+                props.countBool >= props.newBuyData?.length ? (
                   <img src="https://img.icons8.com/ios/15/000000/checked-checkbox--v1.png" />
                 ) : (
                   <img src="https://img.icons8.com/ios/15/000000/unchecked-checkbox.png" />
