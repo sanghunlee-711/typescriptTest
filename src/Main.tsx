@@ -180,6 +180,7 @@ function Main() {
           )
         );
         setCountBool(countBool + 1);
+        console.log("countBool", countBool);
         setCheckBoolean(checkedData?.length <= countBool ? "false" : "true");
       }
     });
@@ -206,6 +207,12 @@ function Main() {
             }
       )
     );
+    // const len = checkedData?.length;
+    if (checkedData && countBool >= checkedData?.length) {
+      setCountBool(0);
+    } else {
+      setCountBool(Number(checkedData?.length));
+    }
   }
   //receive function
   function receiveProduct(
@@ -253,6 +260,7 @@ function Main() {
         receiveProduct={receiveProduct}
         receiveData={receiveData}
         happenError={happenError}
+        countBool={countBool}
       />
       <Done receiveData={receiveData} />
     </div>
