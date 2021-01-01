@@ -1,26 +1,7 @@
 import React from "react";
 import "../styles/confirm.scss";
-
-interface EnumServiceItem {
-  created: string;
-  douzoneCode: string;
-  id: number;
-  isUsed: boolean;
-  modified: string;
-  name: string;
-  quantity: number;
-  totalPrice: number;
-  unitPrice: number;
-  active?: string;
-  serial?: number;
-  serialActive?: string;
-  showSerial?: string;
-}
-interface ErrorType {
-  [index: number]: { serial?: string };
-}
-type ErrorTypes = Array<ErrorType>;
-type EnumServiceItems = Array<EnumServiceItem>;
+import { EnumServiceItem, EnumServiceItems } from "../interface/Enumservice";
+import { ErrorTypes } from "../interface/ErrorType";
 
 function Confirm(props: {
   buydata: [];
@@ -40,7 +21,7 @@ function Confirm(props: {
     checkedData: EnumServiceItems | null | undefined
   ) => void;
   countBool: number;
-}) {
+}): React.ReactElement {
   return (
     <div className="Confirm">
       <section className="Confirm">

@@ -1,33 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import "./Main.scss";
+import "./styles/Main.scss";
 import Confirm from "./components/Confirm";
 import Done from "./components/Done";
 import Request from "./components/Request";
+import { EnumServiceItem, EnumServiceItems } from "./interface/Enumservice";
+import { ErrorTypes } from "./interface/ErrorType";
 
-interface EnumServiceItem {
-  created: string;
-  douzoneCode: string;
-  id: number;
-  isUsed: boolean;
-  modified: string;
-  name: string;
-  quantity: number;
-  totalPrice: number;
-  unitPrice: number;
-  active?: string;
-  serial?: number;
-  serialActive?: string;
-  showSerial?: string;
-}
-
-interface ErrorType {
-  [index: number]: { serial?: string };
-}
-type ErrorTypes = Array<ErrorType>;
-type EnumServiceItems = Array<EnumServiceItem>;
-
-function Main() {
+function Main(): React.ReactElement {
   const [buydata, setBuydata] = useState<[]>([]);
   const [site, setSite] = useState<[]>([]);
   const [sitePartition, setSitePartition] = useState<[]>([]);
@@ -245,6 +225,7 @@ function Main() {
       //구매절차 데이터
       setNewBuyData(newshowData);
     });
+    setCountBool(Number(newBuyData?.length));
   }
 
   return (
