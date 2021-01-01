@@ -3,7 +3,9 @@ import "../styles/done.scss";
 
 import { EnumServiceItem, EnumServiceItems } from "../interface/Enumservice";
 
-function Done(props: { receiveData: EnumServiceItems | null | undefined }) {
+function Done(props: {
+  receiveData: EnumServiceItems | null | undefined;
+}): React.ReactElement {
   return (
     <div className="Done">
       <section className="Confirm">

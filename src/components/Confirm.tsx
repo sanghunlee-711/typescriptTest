@@ -21,7 +21,7 @@ function Confirm(props: {
     checkedData: EnumServiceItems | null | undefined
   ) => void;
   countBool: number;
-}) {
+}): React.ReactElement {
   return (
     <div className="Confirm">
       <section className="Confirm">

@@ -1,13 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import "./Main.scss";
+import "./styles/Main.scss";
 import Confirm from "./components/Confirm";
 import Done from "./components/Done";
 import Request from "./components/Request";
 import { EnumServiceItem, EnumServiceItems } from "./interface/Enumservice";
 import { ErrorTypes } from "./interface/ErrorType";
 
-function Main() {
+function Main(): React.ReactElement {
   const [buydata, setBuydata] = useState<[]>([]);
   const [site, setSite] = useState<[]>([]);
   const [sitePartition, setSitePartition] = useState<[]>([]);

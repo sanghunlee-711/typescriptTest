@@ -2,7 +2,7 @@
 import React from "react";
 import "../styles/request.scss";
 
-function Reqeust(props: { site: []; sitePartition: [] }) {
+function Reqeust(props: { site: []; sitePartition: [] }): React.ReactElement {
   return (
     <section className="Reqeust">
       <div className="requestContainer">
