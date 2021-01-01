@@ -1,21 +1,7 @@
 import React from "react";
 import "../styles/done.scss";
 
-interface EnumServiceItem {
-  created: string;
-  douzoneCode: string;
-  id: number;
-  isUsed: boolean;
-  modified: string;
-  name: string;
-  quantity: number;
-  totalPrice: number;
-  unitPrice: number;
-  active?: string;
-  serial?: number;
-}
-
-type EnumServiceItems = Array<EnumServiceItem>;
+import { EnumServiceItem, EnumServiceItems } from "../interface/Enumservice";
 
 function Done(props: { receiveData: EnumServiceItems | null | undefined }) {
   return (
