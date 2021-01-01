@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/tpaytest/static/css/main.83f78ed5.chunk.css",
-    "main.js": "/tpaytest/static/js/main.d6110ee8.chunk.js",
-    "main.js.map": "/tpaytest/static/js/main.d6110ee8.chunk.js.map",
+    "main.css": "/tpaytest/static/css/main.4c28439a.chunk.css",
+    "main.js": "/tpaytest/static/js/main.c86a8e96.chunk.js",
+    "main.js.map": "/tpaytest/static/js/main.c86a8e96.chunk.js.map",
     "runtime-main.js": "/tpaytest/static/js/runtime-main.fa5ee033.js",
     "runtime-main.js.map": "/tpaytest/static/js/runtime-main.fa5ee033.js.map",
     "static/js/2.895ad41e.chunk.js": "/tpaytest/static/js/2.895ad41e.chunk.js",
@@ -10,13 +10,13 @@
     "static/js/3.f14edaf6.chunk.js": "/tpaytest/static/js/3.f14edaf6.chunk.js",
     "static/js/3.f14edaf6.chunk.js.map": "/tpaytest/static/js/3.f14edaf6.chunk.js.map",
     "index.html": "/tpaytest/index.html",
-    "static/css/main.83f78ed5.chunk.css.map": "/tpaytest/static/css/main.83f78ed5.chunk.css.map",
+    "static/css/main.4c28439a.chunk.css.map": "/tpaytest/static/css/main.4c28439a.chunk.css.map",
     "static/js/2.895ad41e.chunk.js.LICENSE.txt": "/tpaytest/static/js/2.895ad41e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.fa5ee033.js",
     "static/js/2.895ad41e.chunk.js",
-    "static/css/main.83f78ed5.chunk.css",
-    "static/js/main.d6110ee8.chunk.js"
+    "static/css/main.4c28439a.chunk.css",
+    "static/js/main.c86a8e96.chunk.js"
   ]
 }
