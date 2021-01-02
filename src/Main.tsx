@@ -15,7 +15,6 @@ function Main(): React.ReactElement {
   const [newBuyData, setNewBuyData] = useState<
     EnumServiceItems | null | undefined
   >(null);
-  const [checkBoolean, setCheckBoolean] = useState<string>("true");
   const [countBool, setCountBool] = useState<number>(0);
   const [receiveData, setReceiveData] = useState<
     EnumServiceItems | null | undefined
@@ -93,7 +92,6 @@ function Main(): React.ReactElement {
           sampleEl.active = "true";
           sampleEl.serialActive = "false";
           sampleEl.showSerial = "false";
-
           errorArray.push(sampleEl);
         }
         i += 1;
@@ -144,7 +142,6 @@ function Main(): React.ReactElement {
           )
         );
         setCountBool(countBool - 1);
-        setCheckBoolean(checkedData?.length <= countBool ? "false" : "true");
       } else if (el.active === "false" && index === order) {
         //recheck
         setNewBuyData(
@@ -160,7 +157,6 @@ function Main(): React.ReactElement {
           )
         );
         setCountBool(countBool + 1);
-        setCheckBoolean(checkedData?.length <= countBool ? "false" : "true");
       }
     });
   }
@@ -170,8 +166,6 @@ function Main(): React.ReactElement {
     checkedData: EnumServiceItems | null | undefined,
     countBool: number
   ): void {
-    // setCheckBoolean(checkBoolean === "true" ? "false" : "true");
-
     if (checkedData && countBool === checkedData?.length) {
       setCountBool(0);
     } else {
@@ -195,7 +189,6 @@ function Main(): React.ReactElement {
             }
       )
     );
-    // const len = checkedData?.length;
   }
   //receive function
   function receiveProduct(
@@ -240,7 +233,6 @@ function Main(): React.ReactElement {
         newBuyData={newBuyData}
         checking={checking}
         checkAll={checkAll}
-        checkBoolean={checkBoolean}
         receiveProduct={receiveProduct}
         receiveData={receiveData}
         happenError={happenError}
