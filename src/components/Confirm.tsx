@@ -17,7 +17,6 @@ function Confirm(props: {
     checkedData: EnumServiceItems | null | undefined,
     countBool: number
   ) => void;
-  checkBoolean: string;
   receiveProduct: (receivedData: EnumServiceItems | null | undefined) => void;
   happenError: (
     errorData: ErrorTypes,
@@ -51,80 +50,83 @@ function Confirm(props: {
           </div>
 
           <table>
-            <tr>
-              <th
-                onClick={() =>
-                  props.checkAll(props.newBuyData, props.countBool)
-                }
-              >
-                {props.newBuyData != undefined &&
-                props.countBool === props.newBuyData?.length ? (
-                  <img src="https://img.icons8.com/ios/15/000000/checked-checkbox--v1.png" />
-                ) : (
-                  <img src="https://img.icons8.com/ios/15/000000/unchecked-checkbox.png" />
-                )}
-              </th>
-              <th>품목이름</th>
-              <th>품목코드</th>
-              <th>구매단가(VAT포함)</th>
-              <th>구매입고일</th>
-              <th>상태</th>
-              <th>시리얼</th>
-            </tr>
-
-            {props?.newBuyData?.map((el: EnumServiceItem, index) => {
-              return (
-                <tr
-                  key={index}
-                  className={el.active === "true" ? "marking" : ""}
+            <thead>
+              <tr>
+                <th
+                  onClick={() =>
+                    props.checkAll(props.newBuyData, props.countBool)
+                  }
                 >
-                  <td onClick={() => props.checking(index, props.newBuyData)}>
-                    {el.active === "false" ? (
-                      <img src="https://img.icons8.com/ios/15/000000/unchecked-checkbox.png" />
-                    ) : (
-                      <img src="https://img.icons8.com/ios/15/000000/checked-checkbox--v1.png" />
-                    )}
-                  </td>
-                  <td>
-                    {el.isUsed ? (
-                      <span className="newOne">[신품]</span>
-                    ) : (
-                      <span className="oldOne">[중고]</span>
-                    )}
-                    <span>{el.name}</span>
-                  </td>
-                  <td>
-                    <span>{el.douzoneCode}</span>
-                  </td>
-                  <td>
-                    <span>{el.unitPrice}</span>
-                  </td>
-                  <td>
-                    <span className="createdDate">
-                      {el.created.slice(0, el.created.indexOf("T"))}
-                    </span>
-                  </td>
-                  <td className="pending">
-                    <span> 대기</span>
-                  </td>
-                  <td>
-                    <input
-                      disabled
-                      type="text"
-                      value={el.active === "true" ? `시리얼${el.serial}` : ""}
-                    />
-
-                    {el.serialActive === "true" ? (
-                      <span className="serialErrorMent">
-                        시리얼이 중복되었습니다.
+                  {props.newBuyData != undefined &&
+                  props.countBool === props.newBuyData?.length ? (
+                    <img src="https://img.icons8.com/ios/15/000000/checked-checkbox--v1.png" />
+                  ) : (
+                    <img src="https://img.icons8.com/ios/15/000000/unchecked-checkbox.png" />
+                  )}
+                </th>
+                <th>품목이름</th>
+                <th>품목코드</th>
+                <th>구매단가(VAT포함)</th>
+                <th>구매입고일</th>
+                <th>상태</th>
+                <th>시리얼</th>
+              </tr>
+            </thead>
+            <tbody>
+              {props?.newBuyData?.map((el: EnumServiceItem, index) => {
+                return (
+                  <tr
+                    key={index}
+                    className={el.active === "true" ? "marking" : ""}
+                  >
+                    <td onClick={() => props.checking(index, props.newBuyData)}>
+                      {el.active === "false" ? (
+                        <img src="https://img.icons8.com/ios/15/000000/unchecked-checkbox.png" />
+                      ) : (
+                        <img src="https://img.icons8.com/ios/15/000000/checked-checkbox--v1.png" />
+                      )}
+                    </td>
+                    <td>
+                      {el.isUsed ? (
+                        <span className="newOne">[신품]</span>
+                      ) : (
+                        <span className="oldOne">[중고]</span>
+                      )}
+                      <span>{el.name}</span>
+                    </td>
+                    <td>
+                      <span>{el.douzoneCode}</span>
+                    </td>
+                    <td>
+                      <span>{el.unitPrice}</span>
+                    </td>
+                    <td>
+                      <span className="createdDate">
+                        {el.created.slice(0, el.created.indexOf("T"))}
                       </span>
-                    ) : (
-                      <span></span>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+                    </td>
+                    <td className="pending">
+                      <span> 대기</span>
+                    </td>
+                    <td>
+                      <input
+                        disabled
+                        type="text"
+                        value={el.active === "true" ? `시리얼${el.serial}` : ""}
+                      />
+
+                      {el.serialActive === "true" ? (
+                        <span className="serialErrorMent">
+                          시리얼이 중복되었습니다.
+                        </span>
+                      ) : (
+                        <span></span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           {props?.newBuyData?.length === 0 ? (
             <div className="noData">
