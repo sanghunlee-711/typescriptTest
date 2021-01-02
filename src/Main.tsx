@@ -160,19 +160,27 @@ function Main(): React.ReactElement {
           )
         );
         setCountBool(countBool + 1);
-        console.log("countBool", countBool);
         setCheckBoolean(checkedData?.length <= countBool ? "false" : "true");
       }
     });
   }
 
   //checkAll function
-  function checkAll(checkedData: EnumServiceItems | null | undefined): void {
-    setCheckBoolean(checkBoolean === "true" ? "false" : "true");
+  function checkAll(
+    checkedData: EnumServiceItems | null | undefined,
+    countBool: number
+  ): void {
+    // setCheckBoolean(checkBoolean === "true" ? "false" : "true");
+
+    if (checkedData && countBool === checkedData?.length) {
+      setCountBool(0);
+    } else {
+      setCountBool(Number(checkedData?.length));
+    }
 
     setNewBuyData(
       checkedData?.map((el) =>
-        checkBoolean === "true"
+        checkedData && countBool !== checkedData?.length
           ? {
               ...el,
               active: "true",
@@ -188,11 +196,6 @@ function Main(): React.ReactElement {
       )
     );
     // const len = checkedData?.length;
-    if (checkedData && countBool >= checkedData?.length) {
-      setCountBool(0);
-    } else {
-      setCountBool(Number(checkedData?.length));
-    }
   }
   //receive function
   function receiveProduct(

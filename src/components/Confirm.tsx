@@ -13,7 +13,10 @@ function Confirm(props: {
     order: number,
     checkedData: EnumServiceItems | null | undefined
   ) => void;
-  checkAll: (checkedData: EnumServiceItems | null | undefined) => void;
+  checkAll: (
+    checkedData: EnumServiceItems | null | undefined,
+    countBool: number
+  ) => void;
   checkBoolean: string;
   receiveProduct: (receivedData: EnumServiceItems | null | undefined) => void;
   happenError: (
@@ -49,9 +52,13 @@ function Confirm(props: {
 
           <table>
             <tr>
-              <th onClick={() => props.checkAll(props.newBuyData)}>
+              <th
+                onClick={() =>
+                  props.checkAll(props.newBuyData, props.countBool)
+                }
+              >
                 {props.newBuyData != undefined &&
-                props.countBool >= props.newBuyData?.length ? (
+                props.countBool === props.newBuyData?.length ? (
                   <img src="https://img.icons8.com/ios/15/000000/checked-checkbox--v1.png" />
                 ) : (
                   <img src="https://img.icons8.com/ios/15/000000/unchecked-checkbox.png" />
