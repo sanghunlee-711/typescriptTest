@@ -35,8 +35,9 @@
 
 <br>
 
-- functional Component의 Return type정의가 필요합니다.
-- 인터페이스의 모듈화를 통해 깔끔한 코드 구현 필요
+- ~~functional Component의 Return type정의가 필요합니다.~~
+- ~~인터페이스의 모듈화를 통해 깔끔한 코드 구현 필요~~
+- 테스트코드 작성 필요
 
 <br>
 
