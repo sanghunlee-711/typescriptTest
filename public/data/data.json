@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "소형PC스피커(USB전원)",
+      "douzoneCode": "ETDV3SPK007",
+      "quantity": 20,
+      "unitPrice": 3000,
+      "totalPrice": 60000,
+      "isUsed": false,
+      "created": "2020-06-23T10:34:48.444439+09:00",
+      "modified": "2020-06-23T10:54:37.516820+09:00"
+    },
+    {
+      "id": 2,
+      "douzoneCode": "POSETPRI060",
+      "name": "GCUBE-100D(B)(네트워크)",
+      "quantity": 25,
+      "unitPrice": 4000,
+      "totalPrice": 100000,
+      "isUsed": true,
+      "created": "2020-06-23T10:34:48.444439+09:00",
+      "modified": "2020-06-23T10:54:37.516820+09:00"
+    }
+  ]
+}
