@@ -22,13 +22,20 @@ function Main(): React.ReactElement {
 
   //getData function
   function api(url: string, setDataType: string) {
-    return fetch(url)
+    const BASE_URL = "http://localhost:3000/";
+    return fetch(BASE_URL + url, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
+        // if (!response.ok) {
+        //   throw new Error(response.statusText);
+        // }
         return response.json();
       })
+
       .then((res) => {
         if (setDataType === "buydata") {
           setBuydata(res.data);
@@ -42,20 +49,22 @@ function Main(): React.ReactElement {
         } else {
           return;
         }
+        console.log(
+          "fetch",
+          fetch("./data/data.json")
+            .then((res) => res.json())
+            .then((res) => console.log("dataddata", res.data))
+        );
       });
   }
   useEffect(() => {
-    const buydataUrl =
-      "https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/data.json";
+    const buydataUrl = "data/data.json";
 
-    const siteUrl =
-      "https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/site.json";
+    const siteUrl = "data/site.json";
 
-    const sitePartitionUrl =
-      " https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/sitePartition.json";
+    const sitePartitionUrl = "data/sitePartition.json";
 
-    const errorUrl =
-      "https://tpay-coding-test.s3.ap-northeast-2.amazonaws.com/error.json";
+    const errorUrl = "data/error.json";
 
     api(buydataUrl, "buydata");
     api(siteUrl, "site");
